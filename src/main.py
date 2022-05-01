@@ -528,7 +528,7 @@ class downloader:
             logger.warning(f"Failed to download: {os.path.split(file['file_path'])[1]} | 416 Range Not Satisfiable | Assuming broken server hash value")
             content_length = self.session.get(url=file['file_variables']['url'], stream=True, headers=self.headers, cookies=self.cookies, timeout=self.timeout).headers.get('content-length', '')
             if content_length == resume_size:
-                logger.debug("Correct amount of bytes downloaded | Assuming download completed successfully")
+                logger.info("Correct amount of bytes downloaded | Assuming download completed successfully")
                 if self.overwrite:
                     os.replace(part_file, file['file_path'])
                 else:
@@ -577,8 +577,8 @@ class downloader:
                 logger.warning(f"File hash did not match server! | Retrying")
                 if retry > 0:
                     #add delay to prevent failed retry attempt
-                    logger.info(f"Sleep 10 secs")
-                    time.sleep(10)
+                    logger.info(f"Sleep 2 secs")
+                    time.sleep(2)
                     self.download_file(file, retry=retry-1)
                     return
                 logger.error(f"File hash did not match server! | All retries failed")
