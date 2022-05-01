@@ -189,8 +189,8 @@ def get_args():
                     help="The time in seconds to wait between downloading posts. (default: 2)")
 
     ap.add_argument("--retry",
-                    metavar="COUNT", type=int, default=5,
-                    help="The amount of times to retry / resume downloading a file. (default: 5)")
+                    metavar="COUNT", type=int, default=20,
+                    help="The amount of times to retry / resume downloading a file. (default: 20)")
 
     ap.add_argument("--ratelimit-sleep",
                     metavar="SEC", type=int, default=240,
