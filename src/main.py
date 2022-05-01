@@ -500,7 +500,7 @@ class downloader:
         resume_size = 0
         if os.path.exists(part_file) and not self.overwrite:
             resume_size = os.path.getsize(part_file)
-            logger.info(f"Trying to resuming partial download | Resume size: {resume_size} bytes")
+            logger.info(f"Trying to resume partial download | Resume size: {resume_size} bytes")
 
         try:
             response = self.session.get(url=file['file_variables']['url'], stream=True, headers={**self.headers,'Range':f"bytes={resume_size}-"}, cookies=self.cookies, timeout=self.timeout)
@@ -574,7 +574,7 @@ class downloader:
             logger.debug(f"Local File hash: {local_hash}")
             logger.debug(f"Sever File hash: {file['file_variables']['hash']}")
             if local_hash != file['file_variables']['hash']:
-                logger.warning(f"File hash did not match server! | Retrying")
+                logger.warning(f"\nFile hash did not match server! | Retrying")
                 if retry > 0:
                     #add delay to prevent failed retry attempt
                     logger.info(f"Sleep 2 secs")
