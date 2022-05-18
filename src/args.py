@@ -155,7 +155,7 @@ def get_args():
                     help="Only download attachments or inline images with the given file type(s). Takes a file extensions or list of file extensions separated by a comma. (ex mp4,jpg,gif,zip)")
 
     ap.add_argument("--skip-filetypes",
-                    metavar="EXT", type=str, default=[psd],
+                    metavar="EXT", type=str, default=[],
                     help="Only download attachments or inline images without the given file type(s). Takes a file extensions or list of file extensions separated by a comma. (ex mp4,jpg,gif,zip)")
 
 
