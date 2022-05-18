@@ -55,7 +55,7 @@ def get_args():
                     help="Write the post comments to a html file.")
 
     ap.add_argument("--json",
-                    action='store_true', default=True,
+                    action='store_true', default=False,
                     help="Write the post json to a file.")
 
     ap.add_argument("--extract-links",
@@ -105,7 +105,7 @@ def get_args():
                     help="Set the file name pattern for post content, extracted links, and json. See Output Patterns for more detail.")
 
     ap.add_argument("--user-filename-pattern",
-                    metavar="USER_FILENAME_PATTERN", type=str, default='[{user_id}]_{filename}.{ext}',
+                    metavar="USER_FILENAME_PATTERN", type=str, default='[{published}] {filename}.{ext}',
                     help="Set the file name pattern for icon, banner and dms. See Output Patterns for more detail.")
 
     ap.add_argument("--date-strf-pattern",
@@ -155,7 +155,7 @@ def get_args():
                     help="Only download attachments or inline images with the given file type(s). Takes a file extensions or list of file extensions separated by a comma. (ex mp4,jpg,gif,zip)")
 
     ap.add_argument("--skip-filetypes",
-                    metavar="EXT", type=str, default=[],
+                    metavar="EXT", type=str, default=[psd],
                     help="Only download attachments or inline images without the given file type(s). Takes a file extensions or list of file extensions separated by a comma. (ex mp4,jpg,gif,zip)")
 
 
