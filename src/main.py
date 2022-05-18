@@ -393,7 +393,7 @@ class downloader:
         try:
             # add this to clean post function
             file_variables = {
-                'filename':'json',
+                'filename':'post',
                 'ext':'json'
             }
             file_path = compile_file_path(post['post_path'], post['post_variables'], file_variables, self.other_filename_template, self.restrict_ascii)
@@ -428,15 +428,15 @@ class downloader:
 
         part_file = f"{file['file_path']}.part" if not self.no_part else file['file_path']
 
-        logger.info(f"Downloading: {os.path.split(file['file_path'])[1]}")
+        logger.debug(f"Downloading: {os.path.split(file['file_path'])[1]}")
         logger.debug(f"Downloading from: {file['file_variables']['url']}")
-        logger.debug(f"Downloading to: {part_file}")
+        logger.info(f"Downloading: {part_file}")
 
         # try to resume part file
         resume_size = 0
         if os.path.exists(part_file) and not self.overwrite:
             resume_size = os.path.getsize(part_file)
-            logger.info(f"Trying to resuming partial download | Resume size: {resume_size} bytes")
+            logger.info(f"Trying to resume partial download | Resume size: {resume_size} bytes")
 
         try:
             response = self.session.get(url=file['file_variables']['url'], stream=True, headers={**self.headers,'Range':f"bytes={resume_size}-"}, cookies=self.cookies, timeout=self.timeout)
@@ -510,8 +510,11 @@ class downloader:
             logger.debug(f"Local File hash: {local_hash}")
             logger.debug(f"Sever File hash: {file['file_variables']['hash']}")
             if local_hash != file['file_variables']['hash']:
-                logger.warning(f"File hash did not match server! | Retrying")
+                logger.warning(f"\nFile hash did not match server! | Retrying")
                 if retry > 0:
+                    #add delay to prevent failed retry attempt
+                    logger.info(f"Sleep 2 secs")
+                    time.sleep(2)
                     self.download_file(file, retry=retry-1)
                     return
                 logger.error(f"File hash did not match server! | All retries failed")
